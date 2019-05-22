@@ -6,8 +6,6 @@
 trigger:
 - master
 
-
-
 variables:
   buildConfiguration: 'Release'
 stages:
