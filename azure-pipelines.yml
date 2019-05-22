@@ -44,10 +44,7 @@ stages:
   - job: "DevRelease"
     pool:
       vmImage: 'vs2017-win2016'
-    strategy:
-      runOnce:
-        deploy:
-        steps:
+      steps:
         - task: AzureRmWebAppDeployment@4
           inputs:
             ConnectionType: 'AzureRM'
