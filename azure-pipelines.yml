@@ -52,4 +52,4 @@ stages:
             azureSubscription: 'Visual Studio Enterprise (5ae35b9e-9571-4a30-8426-62c1ba3394c4)'
             appType: 'webApp'
             WebAppName: 'PartsUnlimitedLD'
-            packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+            packageForLinux: '$(Build.ArtifactStagingDirectory)/**/*.zip'
