@@ -36,7 +36,7 @@ stages:
     - task: ArchiveFiles@2
       inputs:
         rootFolderOrFile: '$(Build.BinariesDirectory)'
-        includeRootFolder: true
+        includeRootFolder: false
         archiveType: 'zip'
         archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
         replaceExistingArchive: true
@@ -49,12 +49,6 @@ stages:
         vstsFeedPublish: 'multistageartifacts'
         vstsFeedPackagePublish: 'netcoreweb'
         versionOption: 'patch'
-    - task: PublishBuildArtifacts@1
-      inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-        ArtifactName: 'drop'
-        publishLocation: 'Container'
-
 - stage: "DevRelease"
   dependsOn: Build
   jobs:
@@ -69,7 +63,7 @@ stages:
         feedsToUse: 'internal'
         vstsFeed: 'multistageartifacts'
         vstsFeedPackage: 'netcoreweb'
-        vstsPackageVersion: '0.0.1'
+        vstsPackageVersion: '0.0.3'
         feedsToUsePublish: 'internal'
         versionOption: 'patch'
     - task: AzureRmWebAppDeployment@4
