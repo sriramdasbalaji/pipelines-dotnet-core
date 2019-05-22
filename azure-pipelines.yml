@@ -44,12 +44,12 @@ stages:
   jobs:
   - job: "DevRelease"
     pool:
-      vmImage: 'vs2017-win2016'
-      steps:
-        - task: AzureRmWebAppDeployment@4
-          inputs:
-            ConnectionType: 'AzureRM'
-            azureSubscription: 'Visual Studio Enterprise (5ae35b9e-9571-4a30-8426-62c1ba3394c4)'
-            appType: 'webApp'
-            WebAppName: 'PartsUnlimitedLD'
-            packageForLinux: '$(Build.ArtifactStagingDirectory)/**/*.zip'
+     vmImage: 'vs2017-win2016'
+    steps:
+    - task: AzureRmWebAppDeployment@4
+      inputs:
+        ConnectionType: 'AzureRM'
+        azureSubscription: 'Visual Studio Enterprise (5ae35b9e-9571-4a30-8426-62c1ba3394c4)'
+        appType: 'webApp'
+        WebAppName: 'PartsUnlimitedLD'
+        packageForLinux: '$(Build.ArtifactStagingDirectory)/**/*.zip'
