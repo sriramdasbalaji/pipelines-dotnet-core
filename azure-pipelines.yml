@@ -40,6 +40,15 @@ stages:
         archiveType: 'zip'
         archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
         replaceExistingArchive: true
+    - task: UniversalPackages@0
+      inputs:
+        command: 'publish'
+        feedsToUse: 'internal'
+        publishDirectory: '$(Build.ArtifactStagingDirectory)'
+        feedsToUsePublish: 'internal'
+        vstsFeedPublish: 'multistageartifacts'
+        vstsFeedPackagePublish: 'netcoreweb'
+        versionOption: 'patch'
     - task: PublishBuildArtifacts@1
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
