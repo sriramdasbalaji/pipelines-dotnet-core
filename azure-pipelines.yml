@@ -1,53 +1,46 @@
-# ASP.NET Core
-# Build and test ASP.NET Core projects targeting .NET Core.
-# Add steps that run tests, create a NuGet package, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
-
 trigger:
-- master
-
+  - master
 variables:
-  buildConfiguration: 'Release'
+  buildConfiguration: Release
 stages:
-- stage: Build
-  jobs:
-  - job: "PipelineLearningsBuild"
-
-    pool:
-    vmImage: 'vs2017-win2016'
-    steps:
-    - task: DotNetCoreCLI@2
-      inputs:
-      command: 'build'
-      projects: 'pipelines-dotnet-core.csproj'
-      arguments: '--configuration $(BuildConfiguration)'
-      feedsToUse: 'select'
-      versioningScheme: 'off'
-    - task: DotNetCoreCLI@2
-      inputs:
-      command: 'publish'
-      publishWebProjects: false
-      projects: 'pipelines-dotnet-core.csproj'
-      arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)'
-      feedsToUse: 'select'
-      versioningScheme: 'off'
-
-    - task: PublishBuildArtifacts@1
-      inputs:
-      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-      ArtifactName: 'drop'
-      publishLocation: 'Container'
-
-- stage: "DevRelease"
-  jobs:
-  - job: "DevRelease"
-    pool:
-    vmImage: 'vs2017-win2016'
-    steps:
-    - task: AzureRmWebAppDeployment@4
-      inputs:
-      ConnectionType: 'AzureRM'
-      azureSubscription: 'Visual Studio Enterprise (5ae35b9e-9571-4a30-8426-62c1ba3394c4)'
-      appType: 'webApp'
-      WebAppName: 'PartsUnlimitedLD'
-      packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+  - stage: Build
+    jobs:
+      - job: PipelineLearningsBuild
+        pool: null
+        vmImage: vs2017-win2016
+        steps:
+          - task: DotNetCoreCLI@2
+            inputs: null
+            command: build
+            projects: pipelines-dotnet-core.csproj
+            arguments: '--configuration $(BuildConfiguration)'
+            feedsToUse: select
+            versioningScheme: off
+          - task: DotNetCoreCLI@2
+            inputs: null
+            command: publish
+            publishWebProjects: false
+            projects: pipelines-dotnet-core.csproj
+            arguments: >-
+              --configuration $(BuildConfiguration) --output
+              $(build.artifactstagingdirectory)
+            feedsToUse: select
+            versioningScheme: off
+          - task: PublishBuildArtifacts@1
+            inputs: null
+            PathtoPublish: $(Build.ArtifactStagingDirectory)
+            ArtifactName: drop
+            publishLocation: Container
+  - stage: DevRelease
+    jobs:
+      - job: DevRelease
+        pool: null
+        vmImage: vs2017-win2016
+        steps:
+          - task: AzureRmWebAppDeployment@4
+            inputs: null
+            ConnectionType: AzureRM
+            azureSubscription: Visual Studio Enterprise (5ae35b9e-9571-4a30-8426-62c1ba3394c4)
+            appType: webApp
+            WebAppName: PartsUnlimitedLD
+            packageForLinux: $(System.DefaultWorkingDirectory)/**/*.zip
