@@ -26,7 +26,7 @@ stages:
     - task: DotNetCoreCLI@2
       inputs:
         command: 'publish'
-        publishWebProjects: false
+        publishWebProjects: true
         projects: 'pipelines-dotnet-core.csproj'
         arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)'
         modifyOutputPath: false
@@ -52,4 +52,4 @@ stages:
         azureSubscription: 'Visual Studio Enterprise (5ae35b9e-9571-4a30-8426-62c1ba3394c4)'
         appType: 'webApp'
         WebAppName: 'PartsUnlimitedLD'
-        packageForLinux: '$(Build.ArtifactStagingDirectory)/**/*.zip'
+        packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
