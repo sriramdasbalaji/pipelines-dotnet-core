@@ -62,10 +62,20 @@ stages:
     pool:
      vmImage: 'vs2017-win2016'
     steps:
+    - task: UniversalPackages@0
+      inputs:
+        command: 'download'
+        downloadDirectory: '$(System.DefaultWorkingDirectory)'
+        feedsToUse: 'internal'
+        vstsFeed: 'multistageartifacts'
+        vstsFeedPackage: 'netcoreweb'
+        vstsPackageVersion: '0.0.1'
+        feedsToUsePublish: 'internal'
+        versionOption: 'patch'
     - task: AzureRmWebAppDeployment@4
       inputs:
         ConnectionType: 'AzureRM'
         azureSubscription: 'Visual Studio Enterprise (5ae35b9e-9571-4a30-8426-62c1ba3394c4)'
         appType: 'webApp'
         WebAppName: 'PartsUnlimitedLD'
-        packageForLinux: '$(build.artifactstagingdirectory)/**/*.zip'
+        packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
