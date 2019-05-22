@@ -29,6 +29,7 @@ stages:
         publishWebProjects: false
         projects: 'pipelines-dotnet-core.csproj'
         arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)'
+        modifyOutputPath: false
         feedsToUse: 'select'
         versioningScheme: 'off'
 
